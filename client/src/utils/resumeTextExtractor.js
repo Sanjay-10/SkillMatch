@@ -14,21 +14,17 @@ export const extractTextFromFile = async (file) => {
 
 const extractTextFromPDF = async (file) => {
   const formData = new FormData();
-  formData.append("file", file); // Ensure this name matches the server's expected field name
-
+  formData.append("file", file); 
   try {
     const response = await fetch("http://localhost:5000/extract", {
       method: "POST",
       body: formData,
     });
-
     if (!response.ok) {
       throw new Error(`Failed to extract text: ${response.statusText}`);
     }
-
-    // Assuming the server sends plain text
     const data = await response.text();
-    return data; // Return the extracted text
+    return data; 
   } catch (error) {
     console.error("Error extracting text:", error.message);
     throw error;
