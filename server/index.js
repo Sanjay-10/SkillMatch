@@ -7,7 +7,7 @@ const pdfParserRoutes = require("./routes/pdfParser");
 const geminiRoutes = require("./routes/gemini");
 const { config } = require("dotenv");
 
-config();
+require('dotenv').config();
 
 const app = express();
 const port = 5000;
@@ -23,7 +23,7 @@ const storage = multer.memoryStorage(); // Store file in memory
 const upload = multer({ storage });
 
 // Use routes
-app.use("/", upload.single("file"), pdfParserRoutes);
+app.use("/pdfExtractor", upload.single("file"), pdfParserRoutes);
 app.use("/gemini", geminiRoutes);
 
 // Start the server

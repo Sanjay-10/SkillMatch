@@ -1,7 +1,7 @@
-const TextExtractor = ({ text }) => (
+const TextExtractor = ( ) => (
     <div>
-      <h1>Extracted Text</h1>
-      <textarea value={text} readOnly rows={10} cols={50}></textarea>
+      <h1>Extracted Text..</h1>
+      <textarea readOnly rows={10} cols={50}></textarea>
     </div>
   );
   
