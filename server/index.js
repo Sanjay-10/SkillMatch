@@ -5,9 +5,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const pdfParserRoutes = require("./routes/pdfParser");
 const geminiRoutes = require("./routes/gemini");
-const { config } = require("dotenv");
-
-require('dotenv').config();
 
 const app = express();
 const port = 5000;
