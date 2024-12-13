@@ -1,6 +1,7 @@
 import mammoth from "mammoth";
 
 export const extractTextFromFile = async (file) => {
+  console.log("Extracting text from file:", file.name);
   const fileType = file.name.split(".").pop().toLowerCase();
   if (fileType === "pdf") {
     return await extractTextFromPDF(file);
@@ -16,7 +17,7 @@ const extractTextFromPDF = async (file) => {
   const formData = new FormData();
   formData.append("file", file); 
   try {
-    const response = await fetch("http://localhost:5000/extract", {
+    const response = await fetch("http://localhost:5000/pdfExtractor/extract", {
       method: "POST",
       body: formData,
     });
