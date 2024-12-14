@@ -1,33 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 import TextExtractor from "./TextExtractor";
-const SkillMatcher = () => {
-  const [resumeText, setResumeText] = useState("");
-  const [skills, setSkills] = useState([]);
-  const [error, setError] = useState("");
-  const [extractedText, setExtractedText] = useState("");
 
-  // Function to fetch and display extracted text
-  const handleExtractText = () => {
-    chrome.runtime.sendMessage({ action: "EXTRACTED_TEXT" }, (response) => {
-      if (chrome.runtime.lastError) {
-        console.error("Error communicating with background script:", chrome.runtime.lastError.message);
-        setExtractedText("Failed to extract text from page. Background script error.");
-      } else if (response?.status === "success" && response.text) {
-        console.log("Response from background script:", response.text);
-        setExtractedText(response.text); // Update state with extracted text
-      } else {
-        console.error("Unexpected response:", response);
-        setExtractedText("Unexpected response from background script.");
-      }
-    });
+const SkillMatcher = () => {
+
+  const [resumeText, setResumeText] = useState("");
+  const [error, setError] = useState("");
+
+    // Function to save resume text to local storage
+    const saveResumeToLocalStorage = (text) => {
+      localStorage.setItem("resumeText", text);
+    };
+
+      // Function to get resume text from local storage
+  const getResumeFromLocalStorage = () => {
+    return localStorage.getItem("resumeText") || "";
   };
 
+    // On component mount, load resume text from local storage
+    useEffect(() => {
+      const storedResumeText = getResumeFromLocalStorage();
+      if (storedResumeText) {
+        setResumeText(storedResumeText);
+      }
+    }, []);
+
+  // Function to extract text from pdf/docx file  
   const handleFileUpload = async (event) => {
     try {
       const file = event.target.files[0];
       const extractedText = await extractTextFromFile(file);
       setResumeText(extractedText);
+      saveResumeToLocalStorage(extractedText);
     } catch (err) {
       setError("Failed to process file. Please try again.");
       console.error(err);
@@ -36,11 +40,10 @@ const SkillMatcher = () => {
 
   return (
     <div>
-      <TextExtractor resume={resumeText} jobDescription={extractedText} />
-      <button onClick={handleExtractText}>Extract Text from Page</button>
+      <TextExtractor resume={resumeText} />
 
       <div style={{ padding: "20px" }}>
-        <h2>Skill Matcher</h2>
+        <h2>Skill Matcher..</h2>
         <input type="file" accept=".pdf,.docx" onChange={handleFileUpload} />
         {error && <p style={{ color: "red" }}>{error}</p>}
 

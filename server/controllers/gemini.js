@@ -54,7 +54,9 @@ const gemini = async (req, res) => {
                   "coOpStartDate": "YYYY-MM-DD",
                   "Job duration": "like if it's 4 months or 8 months or 12 months or 16 months etc",
                   "experience": "Experience Level Here",
-                  "location": "Location Here"
+                  "location": "Location Here",
+                  "salary":"if given";
+                  "responsibilities":"like what to do in this job in 2 small lines";
                 }
               }
               `;
