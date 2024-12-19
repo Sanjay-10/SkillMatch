@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setResult } from "../skillMatchSlice";
-import { use } from 'react';
 
 /*global chrome*/
-const TextExtractor = ({ resume }) => {
+const TextExtractor = () => {
 
   const dispatch = useDispatch();
   const result = useSelector((state) => state.skillMatch.result);
@@ -12,6 +11,7 @@ const TextExtractor = ({ resume }) => {
 
   // const [extractedText, setExtractedText] = useState("");
 
+  // WEBSITE CONTENT EXTRACTOR
   // Function to fetch and display extracted text
   const handleExtractText = () => {
     return new Promise((resolve, reject) => {
@@ -36,14 +36,14 @@ const TextExtractor = ({ resume }) => {
   // Function to fetch result from server
   const fetchResult = async () => {
     try {
-      const text = await handleExtractText();
+      const websiteContent = await handleExtractText();
 
       const response = await fetch('http://localhost:5000/gemini/result', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText: resumeText, jobDescription: text }),
+        body: JSON.stringify({ resumeText: resumeText, jobDescription: websiteContent }),
       });
       const data = await response.json();
       dispatch(setResult(data.result));
@@ -54,9 +54,8 @@ const TextExtractor = ({ resume }) => {
 
   return (
     <div>
-      <h2>Result</h2>
-      <button onClick={() => fetchResult()}>Result</button>
-      <pre>{JSON.stringify(result, null, 2)}</pre>
+      <button onClick={() => fetchResult()}>Analyze</button>
+      {/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
     </div>
   );
 };

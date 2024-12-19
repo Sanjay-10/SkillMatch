@@ -1,9 +1,9 @@
 import React from "react";
-import SkillMatcher from "./components/SkillMatcher";
+import Homepage from "./pages/HomePage";
 
 const App = () => (
   <div>
-    <SkillMatcher />
+    <Homepage />
   </div>
 );
 

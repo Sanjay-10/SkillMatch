@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setResumeText, setFileName } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
-import TextExtractor from "./TextExtractor";
 
-const SkillMatcher = () => {
+const ResumeHandler = () => {
   const dispatch = useDispatch();
   const { resumeText, fileName } = useSelector((state) => state.skillMatch);
 
@@ -47,11 +46,7 @@ const SkillMatcher = () => {
   };
 
   return (
-    <div>
-      <TextExtractor/>
-
       <div style={{ padding: "20px" }}>
-        <h2>Skill Matcher</h2>
         <input
           type="file"
           accept=".pdf,.docx"
@@ -64,8 +59,7 @@ const SkillMatcher = () => {
         </label>
         {fileName && <p> {fileName}</p>} {/* Display file name */}
       </div>
-    </div>
   );
 };
 
-export default SkillMatcher;
+export default ResumeHandler;
