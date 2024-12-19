@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setResumeText, setFileName } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 import TextExtractor from "./TextExtractor";
 
 const SkillMatcher = () => {
-  const [resumeText, setResumeText] = useState("");
-  const [fileName, setFileName] = useState(""); // State for file name
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const { resumeText, fileName } = useSelector((state) => state.skillMatch);
 
   // Save resume text and file name to local storage
   const saveResumeToLocalStorage = (text, name) => {
@@ -25,10 +26,10 @@ const SkillMatcher = () => {
   useEffect(() => {
     const { text, name } = getResumeFromLocalStorage();
     if (text) {
-      setResumeText(text);
-      setFileName(name); // Set file name if available
+      dispatch(setResumeText(text));
+      dispatch(setFileName(name));
     }
-  }, []);
+  }, [dispatch]);
 
   // Extract text from uploaded file and save text + file name
   const handleFileUpload = async (event) => {
@@ -37,24 +38,31 @@ const SkillMatcher = () => {
       if (!file) return;
 
       const extractedText = await extractTextFromFile(file);
-      setResumeText(extractedText);
-      setFileName(file.name); // Save uploaded file's name
+      dispatch(setResumeText(extractedText));
+      dispatch(setFileName(file.name));
       saveResumeToLocalStorage(extractedText, file.name);
     } catch (err) {
-      setError("Failed to process file. Please try again.");
-      console.error(err);
+      console.error("Failed to process file. Please try again.", err);
     }
   };
 
   return (
     <div>
-      <TextExtractor resume={resumeText} />
+      <TextExtractor/>
 
       <div style={{ padding: "20px" }}>
         <h2>Skill Matcher</h2>
-        <input type="file" accept=".pdf,.docx" onChange={handleFileUpload} />
-        {fileName && <p>Uploaded File: {fileName}</p>} {/* Display file name */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <input
+          type="file"
+          accept=".pdf,.docx"
+          onChange={handleFileUpload}
+          style={{ display: "none" }} // Hide the file input
+          id="fileInput"
+        />
+        <label htmlFor="fileInput" style={{ cursor: "pointer", color: "Green"}}>
+          Choose File
+        </label>
+        {fileName && <p> {fileName}</p>} {/* Display file name */}
       </div>
     </div>
   );

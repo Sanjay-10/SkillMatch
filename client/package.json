@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
     "mammoth": "^1.8.0",
@@ -17,7 +18,8 @@
     "pdfjs-dist": "^4.9.155",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-pdf": "^9.1.1"
+    "react-pdf": "^9.1.1",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
