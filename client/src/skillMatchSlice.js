@@ -5,6 +5,7 @@ const initialState = {
   fileName: "",
   result: "", 
   isDarkMode: false,
+  loading: false,
 };
 
 const skillMatchSlice = createSlice({
@@ -24,9 +25,12 @@ const skillMatchSlice = createSlice({
     toggleDarkMode: (state) => {
       state.isDarkMode = !state.isDarkMode;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload; 
+    },
   },
 });
 
-export const { setResumeText, setFileName, setResult, toggleDarkMode } = skillMatchSlice.actions;
+export const { setResumeText, setFileName, setResult, toggleDarkMode, setLoading } = skillMatchSlice.actions;
 
 export default skillMatchSlice.reducer;

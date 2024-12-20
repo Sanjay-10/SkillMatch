@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setResumeText, setFileName } from "../skillMatchSlice";
+import { setResumeText, setFileName, setLoading } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 
 const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   const dispatch = useDispatch();
-  const { resumeText, fileName } = useSelector((state) => state.skillMatch);
+  const { resumeText, fileName, loading } = useSelector((state) => state.skillMatch);
 
   // Save resume text and file name to local storage
   const saveResumeToLocalStorage = (text, name) => {
@@ -33,6 +33,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   // Extract text from uploaded file and save text + file name
   const handleFileUpload = async (event) => {
     try {
+      dispatch(setLoading(true));
       const file = event.target.files[0];
       if (!file) return;
 
@@ -42,6 +43,8 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
       saveResumeToLocalStorage(extractedText, file.name);
     } catch (err) {
       console.error("Failed to process file. Please try again.", err);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -51,7 +54,8 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   };
 
   // Use useEffect to log the updated resume text when it changes
-  useEffect(() => {// Log updated resumeText
+  useEffect(() => {
+    // Log updated resumeText
   }, [resumeText]); // Only log when resumeText changes
 
   return (
@@ -63,11 +67,15 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
         style={{ display: "none" }} // Hide the file input
         id="fileInput"
       />
-      {fileName && <p style={buttonStyle}>{truncateFileName(fileName)}</p>}
+      {loading ? (
+        <p style={{ ...buttonStyle, textAlign: "center" }}>Loading...</p>
+      ) : (
+        fileName && <p style={buttonStyle}>{truncateFileName(fileName)}</p>
+      )}
       <label
         htmlFor="fileInput"
         className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
-        style={{ cursor: "pointer", ...labelStyle }}
+        style={{ display: loading ? "none" : "", cursor: "pointer", ...labelStyle }}
       >
         Change Resume
       </label>
