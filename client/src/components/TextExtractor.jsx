@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setResult } from "../skillMatchSlice";
 
 /*global chrome*/
-const TextExtractor = () => {
+const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) => {
 
   const dispatch = useDispatch();
-  const result = useSelector((state) => state.skillMatch.result);
   const resumeText = useSelector((state) => state.skillMatch.resumeText);
 
   // const [extractedText, setExtractedText] = useState("");
@@ -47,6 +46,7 @@ const TextExtractor = () => {
       });
       const data = await response.json();
       dispatch(setResult(data.result));
+      console.log("Result:", data.result);  
     } catch (error) {
       console.error("Error fetching result:", error);
     }
@@ -54,8 +54,9 @@ const TextExtractor = () => {
 
   return (
     <div>
-      <button onClick={() => fetchResult()}>Analyze</button>
-      {/* <pre>{JSON.stringify(result, null, 2)}</pre> */}
+      <button onClick={() => fetchResult()} style={buttonStyle}>
+        {buttonLabel}
+      </button>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setResumeText, setFileName } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 
-const ResumeHandler = () => {
+const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   const dispatch = useDispatch();
   const { resumeText, fileName } = useSelector((state) => state.skillMatch);
 
@@ -45,20 +45,34 @@ const ResumeHandler = () => {
     }
   };
 
+  const truncateFileName = (name, maxLength = 40) => {
+    if (name.length <= maxLength) return name;
+    return name.substring(0, maxLength) + "...";
+  };
+
+  // Use useEffect to log the updated resume text when it changes
+  useEffect(() => {
+    console.log("Uploaded Resume Text:", resumeText); // Log updated resumeText
+  }, [resumeText]); // Only log when resumeText changes
+
   return (
-      <div style={{ padding: "20px" }}>
-        <input
-          type="file"
-          accept=".pdf,.docx"
-          onChange={handleFileUpload}
-          style={{ display: "none" }} // Hide the file input
-          id="fileInput"
-        />
-        <label htmlFor="fileInput" style={{ cursor: "pointer", color: "Green"}}>
-          Choose File
-        </label>
-        {fileName && <p> {fileName}</p>} {/* Display file name */}
-      </div>
+    <div style={{ padding: "15px" }}>
+      <input
+        type="file"
+        accept=".pdf,.docx"
+        onChange={handleFileUpload}
+        style={{ display: "none" }} // Hide the file input
+        id="fileInput"
+      />
+      {fileName && <p style={buttonStyle}>{truncateFileName(fileName)}</p>}
+      <label
+        htmlFor="fileInput"
+        className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
+        style={{ cursor: "pointer", ...labelStyle }}
+      >
+        Change Resume
+      </label>
+    </div>
   );
 };
 

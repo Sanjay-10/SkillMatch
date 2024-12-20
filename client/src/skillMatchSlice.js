@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   resumeText: "",
   fileName: "",
-  result: "",
+  result: "", 
+  isDarkMode: false,
 };
 
 const skillMatchSlice = createSlice({
   name: "skillMatch",
   initialState,
+
   reducers: {
     setResumeText(state, action) {
       state.resumeText = action.payload;
@@ -19,9 +21,12 @@ const skillMatchSlice = createSlice({
     setResult(state, action) {
       state.result = action.payload;
     },
+    toggleDarkMode: (state) => {
+      state.isDarkMode = !state.isDarkMode;
+    },
   },
 });
 
-export const { setResumeText, setFileName, setResult } = skillMatchSlice.actions;
+export const { setResumeText, setFileName, setResult, toggleDarkMode } = skillMatchSlice.actions;
 
 export default skillMatchSlice.reducer;
