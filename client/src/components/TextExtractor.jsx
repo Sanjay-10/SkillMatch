@@ -7,12 +7,12 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
 
   const dispatch = useDispatch();
   const resumeText = useSelector((state) => state.skillMatch.resumeText);
-
   // const [extractedText, setExtractedText] = useState("");
 
   // WEBSITE CONTENT EXTRACTOR
   // Function to fetch and display extracted text
   const handleExtractText = () => {
+    // console.log("handleExtractText() Fetching extracted text...");
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({ action: "EXTRACTED_TEXT" }, (response) => {
         if (chrome.runtime.lastError) {
@@ -35,8 +35,9 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
   // Function to fetch result from server
   const fetchResult = async () => {
     try {
+      // console.log("fetchResult() Fetching result...");
       const websiteContent = await handleExtractText();
-
+      // console.log("Website content:", websiteContent);
       const response = await fetch('http://localhost:5000/gemini/result', {
         method: 'POST',
         headers: {

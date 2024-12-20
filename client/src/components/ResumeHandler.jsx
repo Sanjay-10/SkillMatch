@@ -51,8 +51,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   };
 
   // Use useEffect to log the updated resume text when it changes
-  useEffect(() => {
-    console.log("Uploaded Resume Text:", resumeText); // Log updated resumeText
+  useEffect(() => {// Log updated resumeText
   }, [resumeText]); // Only log when resumeText changes
 
   return (
