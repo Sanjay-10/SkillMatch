@@ -4,7 +4,7 @@ import ResumeHandler from "../components/ResumeHandler";
 import TextExtractor from "../components/TextExtractor";
 import { toggleDarkMode as toggleDarkModeAction } from "../skillMatchSlice"; // Import action
 import { Link } from "react-router-dom";
-import Bgc from "./bgc";
+import Bgc from "../components/Bgc";
 
 function Homepage() {
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
@@ -56,33 +56,35 @@ function Homepage() {
           </p>
 
           {/* Analyze Button */}
-          <div className="mt-6 font-semibold">
-            <Link to="/analyze">
-              <TextExtractor
-                buttonLabel="Analyze Now"
-                buttonStyle={{
-                  backgroundColor: "#4F46E5",
-                  color: "#FFF",
-                  padding: "6px 12px",
-                  borderRadius: "4px",
-                  fontSize: "16px",
-                }}
-                onResult={handleAnalyzeResult}
-              />
-            </Link>
-          </div>
+                <div className="mt-6 font-semibold w-full">
+                <Link to="/analyze" className="w-full">
+                  <TextExtractor
+                  buttonLabel="Analyze Now"
+                  buttonStyle={{
+                    backgroundColor: "blue",
+                    color: "#FFF",
+                    padding: "6px 12px",
+                    borderRadius: "4px",
+                    fontSize: "16px",
+                    // width: "100%",
+                  }}
+                  onResult={handleAnalyzeResult}
+                  />
+                </Link>
+                </div>
 
-          {/* Resume Upload Section */}
-          <div className="font-semibold ">
+                {/* Resume Upload Section */}
+          <div className="font-semibold  mt-3">
             <ResumeHandler
               title="Upload Resume"
               buttonStyle={{
                 backgroundColor: "",
-                color: "#4F46E5",
-                border: "1px solid #4F46E5",
-                borderRadius: "4px",
+                color: "blue",
+                border: "1px solid blue",
+                borderRadius: "99px",
                 padding: "6px 12px",
                 fontSize: "13px",
+                // width: "100%",
               }}
               onUpload={handleResumeUpload}
             />

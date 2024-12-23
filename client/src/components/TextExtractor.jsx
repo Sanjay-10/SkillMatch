@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { setResult } from "../skillMatchSlice";
+import { setResult, setGeminiLoading } from "../skillMatchSlice";
 
 /*global chrome*/
 const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) => {
@@ -12,6 +12,7 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
   // WEBSITE CONTENT EXTRACTOR
   // Function to fetch and display extracted text
   const handleExtractText = () => {
+    dispatch(setGeminiLoading(true));
     // console.log("handleExtractText() Fetching extracted text...");
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({ action: "EXTRACTED_TEXT" }, (response) => {
@@ -20,7 +21,7 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
           // setExtractedText("Failed to extract text from page. Background script error.");
           reject("Background script error");
         } else if (response?.status === "success" && response.text) {
-          console.log("Response from background script:", response.text);
+          // console.log("Response from background script:", response.text);
           // setExtractedText(response.text); // Update state with extracted text
           resolve(response.text);
         } else {
@@ -35,9 +36,12 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
   // Function to fetch result from server
   const fetchResult = async () => {
     try {
+      dispatch(setGeminiLoading(true));
       // console.log("fetchResult() Fetching result...");
-      const websiteContent = await handleExtractText();
+      let websiteContent = await handleExtractText();
+      websiteContent = websiteContent.replace(/\s+/g, ' ').trim();
       // console.log("Website content:", websiteContent);
+      // console.log("Resume text:", resumeText);
       const response = await fetch('http://localhost:5000/gemini/result', {
         method: 'POST',
         headers: {
@@ -46,10 +50,13 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
         body: JSON.stringify({ resumeText: resumeText, jobDescription: websiteContent }),
       });
       const data = await response.json();
+
       dispatch(setResult(data.result));
       console.log("Result:", data.result);  
     } catch (error) {
       console.error("Error fetching result:", error);
+    } finally {
+      dispatch(setGeminiLoading(false));
     }
   };
 

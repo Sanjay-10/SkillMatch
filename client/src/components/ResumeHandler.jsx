@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setResumeText, setFileName, setLoading } from "../skillMatchSlice";
+import { setResumeText, setFileName, setResumeLoading } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 
 const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
+  
   const dispatch = useDispatch();
-  const { resumeText, fileName, loading } = useSelector((state) => state.skillMatch);
+  const { resumeText, fileName, resumeLoading } = useSelector((state) => state.skillMatch);
 
   // Save resume text and file name to local storage
   const saveResumeToLocalStorage = (text, name) => {
@@ -33,22 +34,23 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   // Extract text from uploaded file and save text + file name
   const handleFileUpload = async (event) => {
     try {
-      dispatch(setLoading(true));
+      dispatch(setResumeLoading(true));
       const file = event.target.files[0];
       if (!file) return;
 
       const extractedText = await extractTextFromFile(file);
-      dispatch(setResumeText(extractedText));
+      const cleanedText = extractedText.replace(/\s+/g, ' ').trim();
+      dispatch(setResumeText(cleanedText));
       dispatch(setFileName(file.name));
       saveResumeToLocalStorage(extractedText, file.name);
     } catch (err) {
       console.error("Failed to process file. Please try again.", err);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setResumeLoading(false));
     }
   };
 
-  const truncateFileName = (name, maxLength = 40) => {
+  const truncateFileName = (name, maxLength = 30) => {
     if (name.length <= maxLength) return name;
     return name.substring(0, maxLength) + "...";
   };
@@ -59,7 +61,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
   }, [resumeText]); // Only log when resumeText changes
 
   return (
-    <div style={{ padding: "15px" }}>
+    <div style={{ padding: "15px 0" }}>
       <input
         type="file"
         accept=".pdf,.docx"
@@ -67,18 +69,32 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
         style={{ display: "none" }} // Hide the file input
         id="fileInput"
       />
-      {loading ? (
+      {resumeLoading ? (
         <p style={{ ...buttonStyle, textAlign: "center" }}>Loading...</p>
       ) : (
         fileName && <p style={buttonStyle}>{truncateFileName(fileName)}</p>
       )}
-      <label
+
+      {fileName ? (
+        <label
         htmlFor="fileInput"
         className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
-        style={{ display: loading ? "none" : "", cursor: "pointer", ...labelStyle }}
+        style={{ display: resumeLoading ? "none" : "", cursor: "pointer", ...labelStyle }}
       >
         Change Resume
       </label>
+      ) : (
+        <label
+        htmlFor="fileInput"
+        className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
+        style={{ display: resumeLoading ? "none" : "", cursor: "pointer", ...labelStyle }}
+      >
+        Set Resume
+      </label>
+      )}
+
+      
+
     </div>
   );
 };

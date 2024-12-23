@@ -4,14 +4,15 @@
 
 /* In index.css or a style block */
 html, body {
-  width: 300px; /* Fixed width */
-  height: 400px; /* Fixed height */
+  width: 330px; 
+  height: 430px;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent scrollbars */
+  overflow: hidden; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
 }
+

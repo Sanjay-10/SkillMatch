@@ -1,35 +1,101 @@
-import React from 'react';
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Bgc from "../components/Bgc";
+import InfoSection from "../components/infoBox";
 
-const AnalyzePage = () => {
+function Analyze() {
+
+  const {resumeText, fileName, result, isDarkMode, resumeLoading, geminiLoading } = useSelector((state) => state.skillMatch);
+
+  if ( !geminiLoading) {
   return (
-    <div className="h-screen bg-gradient-to-b from-gray-50 to-gray-200 flex flex-col items-center justify-center font-poppins">
-      <div className="flex flex-col items-center">
-        <div className="relative">
-          <div className="w-40 h-40 rounded-full border-8 border-primary flex items-center justify-center">
-            <span className="text-2xl font-bold text-primary">85%</span>
+
+    
+
+    <div className={`${isDarkMode ? "dark" : ""} flex items-center justify-center`}
+      // style={{ width: "330px", height: "430px" }} // Reduced by 30%
+    >
+      
+      <div className="relative  dark:bg-gray-800  w-full h-full p-3 text-left"> {/* Reduced padding */}
+        {/* Header */}
+         <Bgc/>
+        <div className="flex justify-between items-center mb-3"> {/* Reduced margin */}
+          <h1 className="text-sm font-bold text-gray-900 dark:text-white"> {/* Reduced font size */}
+            SkillMatch
+          </h1>
+          <button
+            className="text-sm font-bold text-gray-900 dark:text-white" // Reduced font size
+            onClick={() => console.log("Help icon clicked")}
+          >
+            ?
+          </button>
+         
+        </div>
+        
+        {/* Percentage Centered */}
+        <div className="flex justify-center items-center mb-3"> {/* Reduced margin */}
+          <div className="w-11 h-11 flex items-center justify-center rounded-full bg-[#4F46E5] dark:bg-gray-700"> {/* Reduced size */}
+            <span className="text-sm font-bold text-white dark:text-white"> {/* Reduced font size */}
+            {result.percentageMatch}
+            </span>
           </div>
         </div>
-        <h2 className="text-xl font-semibold mt-6">Skills Match</h2>
-      </div>
-      <div className="mt-8 bg-white shadow-lg rounded-lg p-6 w-3/4 max-w-xl">
-        <h3 className="text-lg font-semibold mb-4">Results</h3>
-        <ul className="space-y-2">
-          <li className="flex justify-between">
-            <span>JavaScript</span>
-            <span className="font-semibold text-primary">Matched</span>
-          </li>
-          <li className="flex justify-between">
-            <span>React</span>
-            <span className="font-semibold text-primary">Matched</span>
-          </li>
-          <li className="flex justify-between">
-            <span>Tailwind CSS</span>
-            <span className="font-semibold text-secondary">Partially Matched</span>
-          </li>
-        </ul>
+
+        {/* Missing Skills */}
+        <InfoSection
+        title="Missing Skills"
+        value={result.missingSkills}
+        />
+
+
+        {/* Job Details */}
+        <InfoSection
+        title="Job Title"
+        value={result.jobDetails.jobTitle}
+        />
+
+        {/* Start Date and Tenure */}
+        <div className="grid grid-cols-2 gap-1.5 mb-1.5"> {/* Reduced gap and margin */}
+         
+         <InfoSection 
+        title="Start Date"
+        value={result.jobDetails.coOpStartDate}
+        />
+        <InfoSection
+        title="Tenure"
+        value={result.jobDetails.jobDuration || null}
+        />
+        </div>
+
+        {/* Salary and Experience */}
+        <div className="grid grid-cols-2 gap-1.5 mb-1.5"> {/* Reduced gap and margin */}
+          
+        <InfoSection 
+        title="Salary" 
+        value={result.jobDetails.salary}
+         />
+        <InfoSection
+        title="Experience"
+        value={result.jobDetails.experience}
+        />
+        </div>
+
+        {/* Location */}
+        <InfoSection 
+        title="Location" 
+        value={result.jobDetails.location}
+        />
+
+        {/* Responsibilities */}
+        {/* <InfoSection 
+        title="Responsibilities" 
+        value=" Develop scalable software solutions, collaborate with cross-functional teams, and optimize system performance." 
+        /> */}
+
       </div>
     </div>
   );
-};
+}
+}
 
-export default AnalyzePage;
+export default Analyze;
