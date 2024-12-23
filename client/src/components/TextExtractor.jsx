@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
-/*global chrome*/
-const TextExtractor = ({ resume, jobDescription }) => {
-  const [extractedText, setExtractedText] = useState("");
-  const [result, setResult] = useState('');
+import { useDispatch, useSelector } from "react-redux";
+import { setResult } from "../skillMatchSlice";
 
+/*global chrome*/
+const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) => {
+
+  const dispatch = useDispatch();
+  const resumeText = useSelector((state) => state.skillMatch.resumeText);
+  // const [extractedText, setExtractedText] = useState("");
+
+  // WEBSITE CONTENT EXTRACTOR
   // Function to fetch and display extracted text
   const handleExtractText = () => {
+    // console.log("handleExtractText() Fetching extracted text...");
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({ action: "EXTRACTED_TEXT" }, (response) => {
         if (chrome.runtime.lastError) {
           console.error("Error communicating with background script:", chrome.runtime.lastError.message);
-          setExtractedText("Failed to extract text from page. Background script error.");
+          // setExtractedText("Failed to extract text from page. Background script error.");
           reject("Background script error");
         } else if (response?.status === "success" && response.text) {
           console.log("Response from background script:", response.text);
-          setExtractedText(response.text); // Update state with extracted text
+          // setExtractedText(response.text); // Update state with extracted text
           resolve(response.text);
         } else {
           console.error("Unexpected response:", response);
-          setExtractedText("Unexpected response from background script.");
+          // setExtractedText("Unexpected response from background script.");
           reject("Unexpected response");
         }
       });
@@ -26,20 +33,21 @@ const TextExtractor = ({ resume, jobDescription }) => {
   };
 
   // Function to fetch result from server
-  const fetchResult = async (resume) => {
+  const fetchResult = async () => {
     try {
-      const text = await handleExtractText();
-
+      // console.log("fetchResult() Fetching result...");
+      const websiteContent = await handleExtractText();
+      // console.log("Website content:", websiteContent);
       const response = await fetch('http://localhost:5000/gemini/result', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resumeText: resume, jobDescription: text }),
+        body: JSON.stringify({ resumeText: resumeText, jobDescription: websiteContent }),
       });
       const data = await response.json();
-      setResult(data.result);
-      return data;
+      dispatch(setResult(data.result));
+      console.log("Result:", data.result);  
     } catch (error) {
       console.error("Error fetching result:", error);
     }
@@ -47,9 +55,9 @@ const TextExtractor = ({ resume, jobDescription }) => {
 
   return (
     <div>
-      <h2>Result</h2>
-      <button onClick={() => fetchResult(resume)}>Result</button>
-      <pre>{JSON.stringify(result, null, 2)}</pre>
+      <button onClick={() => fetchResult()} style={buttonStyle}>
+        {buttonLabel}
+      </button>
     </div>
   );
 };
