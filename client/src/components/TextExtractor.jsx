@@ -40,7 +40,7 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
       // console.log("fetchResult() Fetching result...");
       let websiteContent = await handleExtractText();
       websiteContent = websiteContent.replace(/\s+/g, ' ').trim();
-      // console.log("Website content:", websiteContent);
+      console.log("Website content:", websiteContent);
       // console.log("Resume text:", resumeText);
       const response = await fetch('http://localhost:5000/gemini/result', {
         method: 'POST',

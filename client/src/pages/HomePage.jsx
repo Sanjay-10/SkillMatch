@@ -5,6 +5,7 @@ import TextExtractor from "../components/TextExtractor";
 import { toggleDarkMode as toggleDarkModeAction } from "../skillMatchSlice"; // Import action
 import { Link } from "react-router-dom";
 import Bgc from "../components/Bgc";
+import Header from "../components/Header";
 
 function Homepage() {
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
@@ -21,29 +22,21 @@ function Homepage() {
   };
 
   return (
-    <div className={isDarkMode ? "dark" : ""}>
-      {" "}
-      {/* Apply dark mode class based on state */}
-      <div className="relative flex flex-col  items-center justify-between px-4 pb-2 text-center w-full h-full">
-        {/* Header */}
-        <div className="flex justify-between items-center w-full px-4 py-2">
-          <h1 className="text-sm font-bold text-gray-900 dark:text-white">
-            SkillMatch
-          </h1>
-          <button
-            className="text-lg font-bold text-gray-900 dark:text-white"
-            onClick={() => console.log("Help icon clicked")}
-          >
-            ?
-          </button>
-        </div>
+    <div className={isDarkMode ? "dark" : ""}
+    style={{ width: "330px", height: "430px", overflow:"hidden"}} 
+    >
+      
+      <div className="font-medium text-lg px-5">
+        <Header />
+      </div>
 
-        {/* Gradient Background */}
+      <div className="relative flex flex-col  items-center justify-between pb-2 px-4 text-center w-full h-full">
+  
         <Bgc />
         
 
         {/* Main Content */}
-        <div className="w-full flex-1 flex flex-col mt-7 items-center justify-center">
+        <div className="w-full flex-1 flex flex-col mt-7 items-center ">
           <p className="text-xl font-semibold text-black-900 dark:text-white mb-2">
             Your Ultimate Job Search Companion
           </p>
@@ -61,8 +54,8 @@ function Homepage() {
                   <TextExtractor
                   buttonLabel="Analyze Now"
                   buttonStyle={{
-                    backgroundColor: "blue",
-                    color: "#FFF",
+                    backgroundColor: "#007bff",
+                    color: "white",
                     padding: "6px 12px",
                     borderRadius: "4px",
                     fontSize: "16px",
@@ -74,16 +67,16 @@ function Homepage() {
                 </div>
 
                 {/* Resume Upload Section */}
-          <div className="font-semibold  mt-3">
+          <div className="font-semibold mt-3">
             <ResumeHandler
               title="Upload Resume"
               buttonStyle={{
-                backgroundColor: "",
-                color: "blue",
-                border: "1px solid blue",
+                backgroundColor: "white",
+                color: "#007bff",
+                border: "1px solid #007bff",
                 borderRadius: "99px",
                 padding: "6px 12px",
-                fontSize: "13px",
+                fontSize: "14px",
                 // width: "100%",
               }}
               onUpload={handleResumeUpload}

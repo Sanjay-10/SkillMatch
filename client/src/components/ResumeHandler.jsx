@@ -76,13 +76,15 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
       )}
 
       {fileName ? (
+        <div className="mt-2">
         <label
         htmlFor="fileInput"
-        className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
+        className="text-[13px]  font-medium text-blue-900 hover:underline hover:font-bold"
         style={{ display: resumeLoading ? "none" : "", cursor: "pointer", ...labelStyle }}
       >
         Change Resume
       </label>
+          </div>
       ) : (
         <label
         htmlFor="fileInput"
