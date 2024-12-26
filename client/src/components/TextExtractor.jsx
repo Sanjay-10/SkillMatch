@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setResult, setGeminiLoading } from "../skillMatchSlice";
+import Quote from 'inspirational-quotes';
 
 /*global chrome*/
-const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) => {
+const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
 
   const dispatch = useDispatch();
   const resumeText = useSelector((state) => state.skillMatch.resumeText);
@@ -61,7 +62,7 @@ const TextExtractor = ({ buttonLabel = "Analyze", buttonStyle = {}, onResult }) 
   };
 
   return (
-    <div>
+    <div >
       <button onClick={() => fetchResult()} style={buttonStyle}>
         {buttonLabel}
       </button>

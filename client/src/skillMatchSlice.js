@@ -30,7 +30,7 @@ const skillMatchSlice = createSlice({
       state.resumeLoading = action.payload; 
     },
     setGeminiLoading: (state, action) => {
-      state.resumeLoading = action.payload; 
+      state.geminiLoading = action.payload; 
     },
   },
 });

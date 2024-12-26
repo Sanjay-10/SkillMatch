@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setResumeText, setFileName, setResumeLoading } from "../skillMatchSlice";
+import {
+  setResumeText,
+  setFileName,
+  setResumeLoading,
+} from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 
 const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
-  
   const dispatch = useDispatch();
-  const { resumeText, fileName, resumeLoading } = useSelector((state) => state.skillMatch);
+  const { resumeText, fileName, resumeLoading } = useSelector(
+    (state) => state.skillMatch
+  );
 
   // Save resume text and file name to local storage
   const saveResumeToLocalStorage = (text, name) => {
@@ -39,7 +44,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
       if (!file) return;
 
       const extractedText = await extractTextFromFile(file);
-      const cleanedText = extractedText.replace(/\s+/g, ' ').trim();
+      const cleanedText = extractedText.replace(/\s+/g, " ").trim();
       dispatch(setResumeText(cleanedText));
       dispatch(setFileName(file.name));
       saveResumeToLocalStorage(extractedText, file.name);
@@ -70,33 +75,39 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
         id="fileInput"
       />
       {resumeLoading ? (
-        <p style={{ ...buttonStyle, textAlign: "center" }}>Loading...</p>
+        <p style={{ ...buttonStyle, textAlign: "center", }}>Loading...</p>
       ) : (
         fileName && <p style={buttonStyle}>{truncateFileName(fileName)}</p>
       )}
 
       {fileName ? (
         <div className="mt-2">
-        <label
-        htmlFor="fileInput"
-        className="text-[13px]  font-medium text-blue-900 hover:underline hover:font-bold"
-        style={{ display: resumeLoading ? "none" : "", cursor: "pointer", ...labelStyle }}
-      >
-        Change Resume
-      </label>
-          </div>
+          <label
+            htmlFor="fileInput"
+            className="text-[14px]  font-medium text-blue-900 hover:underline hover:font-bold"
+            style={{
+              display: resumeLoading ? "none" : "",
+              cursor: "pointer",
+              ...labelStyle,
+            }}
+          >
+            Change Resume
+          </label>
+        </div>
       ) : (
         <label
-        htmlFor="fileInput"
-        className="text-xs font-medium text-blue-900 hover:underline hover:font-bold"
-        style={{ display: resumeLoading ? "none" : "", cursor: "pointer", ...labelStyle }}
-      >
-        Set Resume
-      </label>
+          htmlFor="fileInput"
+          className="text-[16px]  font-medium text-blue-900 hover:underline "
+          style={{
+            display: resumeLoading ? "none" : "",
+            cursor: "pointer",
+          
+            ...labelStyle,
+          }}
+        >
+          Set Resume
+        </label>
       )}
-
-      
-
     </div>
   );
 };
