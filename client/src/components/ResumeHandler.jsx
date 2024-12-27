@@ -7,7 +7,7 @@ import {
 } from "../skillMatchSlice";
 import { extractTextFromFile } from "../utils/resumeTextExtractor";
 
-const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
+const ResumeHandler = ({ labelStyle = {}, title ,buttonStyle = {} }) => {
   const dispatch = useDispatch();
   const { resumeText, fileName, resumeLoading } = useSelector(
     (state) => state.skillMatch
@@ -91,7 +91,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
               ...labelStyle,
             }}
           >
-            Change Resume
+            {title}
           </label>
         </div>
       ) : (
@@ -105,7 +105,7 @@ const ResumeHandler = ({ labelStyle = {}, buttonStyle = {} }) => {
             ...labelStyle,
           }}
         >
-          Set Resume
+          {title}
         </label>
       )}
     </div>

@@ -22,7 +22,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d3d2d2; /* Color of the scrollbar thumb */
+  background-color: #b3b3b3; /* Color of the scrollbar thumb */
   border-radius: 100px; /* Rounded corners */
 }
 

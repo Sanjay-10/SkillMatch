@@ -4,7 +4,7 @@ import Bgc from "../components/Bgc";
 import InfoSection from "../components/infoBox";
 import Header from "../components/Header";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import Quote from "inspirational-quotes";
+import Loader from "../components/Loader/Loader";
 
 function Analyze() {
   const {
@@ -16,11 +16,8 @@ function Analyze() {
     geminiLoading,
   } = useSelector((state) => state.skillMatch);
 
-  // Fetch random quote
-  const randomQuote = Quote.getRandomQuote();
-
   return (
-    <div style={{ width: "330px", height: "430px", overflowY: "scroll" }} className="pb-4">
+    <div style={{ width: "330px", height: "430px", overflowY: "scroll" }} className="pb-4 px-1">
       <div className="flex items-center w-full">
         <div className="flex-shrink-0">
           <Link to="/">
@@ -35,17 +32,14 @@ function Analyze() {
       <Bgc />
       {geminiLoading ? (
             
-            <div className="flex justify-center items-center h-full">
-              
-              <div className="quote-container">
-              <p className="text-sm text-center text-blue-600 dark:text-white">
-              Please wait, your data is processing...
-              </p>
-                <p className="text-lg font-semibold text-center text-blue-800 dark:text-white">
-                  {randomQuote}
-                </p>
-              </div>
+            <div className="flex flex-col mt-16 items-center h-full space-y-4 mb-10 px-6">
+            <p className="text-center font-medium mb-5 text-lg text-[#163a61]">
+              Analyzing your data... Please hold on for a moment.
+            </p>
+            <div>
+              <Loader />
             </div>
+          </div>
           ) : (
 
       <div className={`${isDarkMode ? "dark" : ""} flex items-center justify-center`}>
@@ -63,7 +57,7 @@ function Analyze() {
                   </span>
                 </div>
                 <div className="ml-2 text-lg font-semibold text-blue-800 dark:text-gray-300">
-                  %
+                  %  Keywords Match
                 </div>
               </div>
 

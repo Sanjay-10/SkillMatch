@@ -68,11 +68,10 @@ function Homepage() {
           )}
 
           {/* Resume Upload Section */}
-
           {fileName ? (
             <div className="font-semibold mt-3">
               <ResumeHandler
-                title="Upload Resume"
+                title="Change Resume"
                 labelStyle={{
                   hover: "bold",
                 }}
@@ -94,7 +93,7 @@ function Homepage() {
           ) : (
             <div className="font-semibold mt-3">
               <ResumeHandler
-                title="Upload Resume"
+                title="Add Resume"
                 labelStyle={{
                   backgroundColor: "white",
                   color: "#007bff",

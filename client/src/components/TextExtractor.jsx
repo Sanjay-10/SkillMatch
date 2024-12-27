@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setResult, setGeminiLoading } from "../skillMatchSlice";
-import Quote from 'inspirational-quotes';
 
 /*global chrome*/
 const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
