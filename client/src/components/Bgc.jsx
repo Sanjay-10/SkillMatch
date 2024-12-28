@@ -20,7 +20,7 @@ function Bgc() {
             className={`relative left-[calc(60%-1rem)] aspect-[1055/678] w-[46.125rem] -translate-x-1/2 rotate-[40deg] ${
               isDarkMode
                 ? "bg-[#1C1C1E]"
-                : "bg-gradient-to-tr from-[#5770fcdf] to-[#af11f8]"
+                : "bg-gradient-to-tr from-[#6eaec1] to-[#5891a9]"
             } opacity-40 sm:left-[calc(80%-20rem)] sm:w-[77.1875rem]`}
           ></div>
         </div>
@@ -39,7 +39,7 @@ function Bgc() {
             className={`relative left-[calc(60%-1rem)] aspect-[1055/678] w-[46.125rem] -translate-x-1/2 rotate-[60deg] ${
               isDarkMode
                 ? "bg-[#1C1C1E]"
-                : "bg-gradient-to-tr from-[#5770fcdf] to-[#af11f8]"
+                : "bg-gradient-to-tr from-[#749de4] to-[#4a70e5]"
             } opacity-20 sm:left-[calc(80%-20rem)] sm:w-[77.1875rem]`}
           ></div>
         </div>

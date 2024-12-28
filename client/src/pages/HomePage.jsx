@@ -4,46 +4,42 @@ import ResumeHandler from "../components/ResumeHandler";
 import TextExtractor from "../components/TextExtractor";
 import { toggleDarkMode as toggleDarkModeAction } from "../skillMatchSlice"; // Import action
 import { Link } from "react-router-dom";
-import Bgc from "./bgc";
+import Bgc from "../components/Bgc";
+import Header from "../components/Header";
+import fail from "../assets/failed.png"; 
 
 function Homepage() {
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
-  const resumetext = useSelector((state) => state.skillMatch.resumeText);
-  const dispatch = useDispatch();
-
-  const handleResumeUpload = (fileName) => {
-    console.log("Uploaded Resume Text:", resumetext);
-    console.log("Uploaded File Name:", fileName);
-  };
-
-  const handleAnalyzeResult = (result) => {
-    console.log("Analysis Result:", result);
-  };
+  const { fileName, resumeError } = useSelector((state) => state.skillMatch);
 
   return (
-    <div className={isDarkMode ? "dark" : ""}>
-      {" "}
-      {/* Apply dark mode class based on state */}
-      <div className="relative flex flex-col  items-center justify-between px-4 pb-2 text-center w-full h-full">
-        {/* Header */}
-        <div className="flex justify-between items-center w-full px-4 py-2">
-          <h1 className="text-sm font-bold text-gray-900 dark:text-white">
-            SkillMatch
-          </h1>
-          <button
-            className="text-lg font-bold text-gray-900 dark:text-white"
-            onClick={() => console.log("Help icon clicked")}
-          >
-            ?
-          </button>
-        </div>
+    <div
+      className={isDarkMode ? "dark" : ""}
+      style={{ width: "330px", height: "430px", overflow: "hidden" }}
+    >      
+            {/* Success or Failure Alert */}
+            {resumeError == true && (
+              <div  
+                className="fixed top-4 right-4 flex items-center gap-4 p-2 rounded shadow bg-red-100 text-red-800"
+              >
+                <img
+                  src={fail} 
+                  alt={'Error'}
+                  className="w-5 h-5"
+                />
+                <span>{"Please try again."}</span>
+              </div>
+            )}
 
-        {/* Gradient Background */}
+      <div className="font-medium text-lg px-5">
+        <Header />
+      </div>
+
+      <div className="relative flex flex-col  items-center justify-between pb-2 px-4 text-center w-full h-full">
         <Bgc />
-        
 
         {/* Main Content */}
-        <div className="w-full flex-1 flex flex-col mt-7 items-center justify-center">
+        <div className="w-full flex-1 flex flex-col mt-7 items-center ">
           <p className="text-xl font-semibold text-black-900 dark:text-white mb-2">
             Your Ultimate Job Search Companion
           </p>
@@ -55,39 +51,68 @@ function Homepage() {
             Generates Perfect <strong>Cover Letters</strong> for Students!
           </p>
 
+
           {/* Analyze Button */}
-          <div className="mt-6 font-semibold">
-            <Link to="/analyze">
-              <TextExtractor
-                buttonLabel="Analyze Now"
-                buttonStyle={{
-                  backgroundColor: "#4F46E5",
-                  color: "#FFF",
-                  padding: "6px 12px",
-                  borderRadius: "4px",
-                  fontSize: "16px",
-                }}
-                onResult={handleAnalyzeResult}
-              />
-            </Link>
-          </div>
+
+          {fileName && (
+            <div className="mt-6 font-semibold w-full">
+              <Link to="/analyze" className="w-full ">
+                <TextExtractor
+                  buttonLabel="Analyze Now"
+                  buttonStyle={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    padding: "6px 12px",
+                    borderRadius: "4px",
+                    fontSize: "16px",
+                    // width: "100%",
+                  }}
+                />
+              </Link>
+            </div>
+          )}
 
           {/* Resume Upload Section */}
-          <div className="font-semibold ">
-            <ResumeHandler
-              title="Upload Resume"
-              buttonStyle={{
-                backgroundColor: "",
-                color: "#4F46E5",
-                border: "1px solid #4F46E5",
-                borderRadius: "4px",
-                padding: "6px 12px",
-                fontSize: "13px",
-              }}
-              onUpload={handleResumeUpload}
-            />
-          </div>
+          {fileName ? (
+            <div className="font-semibold mt-3">
+              <ResumeHandler
+                title="Change Resume"
+                labelStyle={{
+                  hover: "bold",
+                }}
+                buttonStyle={{
+                  backgroundColor: "white",
+                  color: "#007bff",
+                  border: "1px solid #007bff",
+                  borderRadius: "99px",
+                  padding: "6px 12px",
+                  fontSize: "14px",
+                  hover: {
+                    backgroundColor: "white",
+                  },
+                  // width: "100%",
+                }}
+              />
+            </div>
+          ) : (
+            <div className="font-semibold mt-3">
+              <ResumeHandler
+                title="Add Resume"
+                labelStyle={{
+                  backgroundColor: "white",
+                  color: "#007bff",
+                  border: "1px solid #007bff",
+                  borderRadius: "99px",
+                  padding: "6px 12px",
+                  fontSize: "14px",
+                  // width: "100%",
+                }}
+              />
+            </div>
+          )}
+
         </div>
+
       </div>
     </div>
   );

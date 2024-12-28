@@ -1,7 +1,10 @@
 const router = require("express").Router();
 
-const { gemini } = require("../controllers/gemini");
+const { extension, detailedOverview } = require("../controllers/gemini");
+const { coverLetter } = require("../controllers/coverLetter");
 
-router.post("/result", gemini);
+router.post("/extension", extension);
+router.post("/detailedOverview", detailedOverview);
+router.post("/coverLetter", coverLetter);
 
 module.exports = router;
