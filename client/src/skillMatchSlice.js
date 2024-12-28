@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   resumeText: "",
+  jobDescription: "",
   fileName: "",
   result: "", 
   isDarkMode: false,
   resumeLoading: false,
   geminiLoading: false,
+  resumeError: false,
 };
 
 const skillMatchSlice = createSlice({
@@ -16,6 +18,9 @@ const skillMatchSlice = createSlice({
   reducers: {
     setResumeText(state, action) {
       state.resumeText = action.payload;
+    },
+    setJobDescription(state, action) {
+      state.jobDescription = action.payload;
     },
     setFileName(state, action) {
       state.fileName = action.payload;
@@ -32,9 +37,12 @@ const skillMatchSlice = createSlice({
     setGeminiLoading: (state, action) => {
       state.geminiLoading = action.payload; 
     },
+    setResumeError: (state, action) => {
+      state.resumeError = action.payload; 
+    },
   },
 });
 
-export const { setResumeText, setFileName, setResult, toggleDarkMode, setResumeLoading, setGeminiLoading } = skillMatchSlice.actions;
+export const { setResumeText, setJobDescription, setFileName, setResult, toggleDarkMode, setResumeLoading, setGeminiLoading, setResumeError } = skillMatchSlice.actions;
 
 export default skillMatchSlice.reducer;

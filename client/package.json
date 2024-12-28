@@ -28,6 +28,7 @@
     "headlessui": "^0.0.0",
     "heroicons": "^2.2.0",
     "mammoth": "^1.8.0",
+    "npm": "^11.0.0",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^4.9.155",
     "react": "^18.3.1",

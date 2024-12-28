@@ -6,25 +6,31 @@ import { toggleDarkMode as toggleDarkModeAction } from "../skillMatchSlice"; // 
 import { Link } from "react-router-dom";
 import Bgc from "../components/Bgc";
 import Header from "../components/Header";
+import fail from "../assets/failed.png"; 
 
 function Homepage() {
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
-  const { resumetext, fileName } = useSelector((state) => state.skillMatch);
-
-  const handleResumeUpload = (fileName) => {
-    console.log("Uploaded Resume Text:", resumetext);
-    console.log("Uploaded File Name:", fileName);
-  };
-
-  const handleAnalyzeResult = (result) => {
-    console.log("Analysis Result:", result);
-  };
+  const { fileName, resumeError } = useSelector((state) => state.skillMatch);
 
   return (
     <div
       className={isDarkMode ? "dark" : ""}
       style={{ width: "330px", height: "430px", overflow: "hidden" }}
-    >
+    >      
+            {/* Success or Failure Alert */}
+            {resumeError == true && (
+              <div  
+                className="fixed top-4 right-4 flex items-center gap-4 p-2 rounded shadow bg-red-100 text-red-800"
+              >
+                <img
+                  src={fail} 
+                  alt={'Error'}
+                  className="w-5 h-5"
+                />
+                <span>{"Please try again."}</span>
+              </div>
+            )}
+
       <div className="font-medium text-lg px-5">
         <Header />
       </div>
@@ -61,7 +67,6 @@ function Homepage() {
                     fontSize: "16px",
                     // width: "100%",
                   }}
-                  onResult={handleAnalyzeResult}
                 />
               </Link>
             </div>
@@ -87,7 +92,6 @@ function Homepage() {
                   },
                   // width: "100%",
                 }}
-                onUpload={handleResumeUpload}
               />
             </div>
           ) : (
@@ -103,11 +107,12 @@ function Homepage() {
                   fontSize: "14px",
                   // width: "100%",
                 }}
-                onUpload={handleResumeUpload}
               />
             </div>
           )}
+
         </div>
+
       </div>
     </div>
   );

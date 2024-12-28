@@ -4,15 +4,15 @@ import success from '../assets/success.png';
 import fail from '../assets/failed.png';
 
 function Contact() {
-  const [isSent, setIsSent] = useState(null); // State to track email status (success, failure, or null)
+  const [isSent, setIsSent] = useState(null); 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     message: '',
-  }); // State to track form data
+  }); 
 
-  // Handle form input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -27,13 +27,12 @@ function Contact() {
     try {
       // Send email using EmailJS
       await emailjs.sendForm(
-        import.meta.env.VITE_SERVICE_ID, // Replace with your EmailJS service ID
-        import.meta.env.VITE_TEMPLATE_ID, // Replace with your EmailJS template ID
+        import.meta.env.VITE_SERVICE_ID, 
+        import.meta.env.VITE_TEMPLATE_ID, 
         e.target,
-        import.meta.env.VITE_PUBLIC_KEY // Replace with your EmailJS public key
+        import.meta.env.VITE_PUBLIC_KEY, 
       );
 
-      // If successful, set success state and clear form data
       setIsSent(true);
       setFormData({
         firstName: '',
@@ -74,9 +73,11 @@ function Contact() {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-12">
           <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5 text-2xl ">
-              <h5 className="SkillMatch font-semibold">SkillMatch</h5>
-            </a>
+            <div className="-m-1.5 p-1.5 text-2xl ">
+              <h5 className="SkillMatch font-semibold cursor-default">
+                SkillMatch
+                </h5>
+              </div>
           </div>
         </nav>
       </header>

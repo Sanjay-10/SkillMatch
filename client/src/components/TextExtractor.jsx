@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { setResult, setGeminiLoading } from "../skillMatchSlice";
+import { setResult, setGeminiLoading, setResumeError, setJobDescription } from "../skillMatchSlice";
 
 /*global chrome*/
 const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
 
   const dispatch = useDispatch();
   const resumeText = useSelector((state) => state.skillMatch.resumeText);
+
   // const [extractedText, setExtractedText] = useState("");
 
   // WEBSITE CONTENT EXTRACTOR
@@ -40,9 +41,10 @@ const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
       // console.log("fetchResult() Fetching result...");
       let websiteContent = await handleExtractText();
       websiteContent = websiteContent.replace(/\s+/g, ' ').trim();
-      console.log("Website content:", websiteContent);
+      dispatch(setJobDescription(websiteContent));
+      // console.log("Website content:", websiteContent);
       // console.log("Resume text:", resumeText);
-      const response = await fetch('http://localhost:5000/gemini/result', {
+      const response = await fetch('http://localhost:5000/gemini/extension', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,11 +54,21 @@ const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
       const data = await response.json();
 
       dispatch(setResult(data.result));
-      console.log("Result:", data.result);  
+      // console.log("Result:", data.result);  
+
     } catch (error) {
-      console.error("Error fetching result:", error);
+      dispatch(setResult(error.message));
+      dispatch(setResumeError(true));
+      setTimeout(() => {
+        dispatch(setResumeError(false));
+      }, 3000);
+
     } finally {
       dispatch(setGeminiLoading(false));
+      setTimeout(() => {
+        dispatch(setResumeError(false));
+      }, 3000);
+
     }
   };
 
