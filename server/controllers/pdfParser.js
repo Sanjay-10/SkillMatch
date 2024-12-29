@@ -7,9 +7,9 @@ const parsePdf = async (req, res) => {
       return res.status(400).send("No file uploaded");
     }
 
-    const dataBuffer = req.file.buffer; // Multer makes the file available in req.file
-    const result = await PdfParse(dataBuffer); // Parse the PDF
-    console.log("PDF parsed successfully"); 
+    const dataBuffer = req.file.buffer;
+    const result = await PdfParse(dataBuffer);
+    console.log("PDF parsed successfully");
     res.send(result.text);
   } catch (error) {
     console.error(error);

@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
-app.use(cors()); // Enable CORS
+app.use(cors({ origin: "https://skill-match-dashboard.vercel.app/" })); // Enable CORS
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
 
