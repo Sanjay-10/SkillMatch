@@ -16,14 +16,14 @@ const ResumeHandler = ({ labelStyle = {}, title ,buttonStyle = {} }) => {
   // Save resume text and file name to local storage
   const saveResumeToLocalStorage = (text, name) => {
     localStorage.setItem("resumeText", text);
-    localStorage.setItem("resumeFileName", name); // Save file name
+    localStorage.setItem("resumeFileName", name); 
   };
 
   // Retrieve resume text and file name from local storage
   const getResumeFromLocalStorage = () => {
     return {
       text: localStorage.getItem("resumeText") || "",
-      name: localStorage.getItem("resumeFileName") || "", // Retrieve file name
+      name: localStorage.getItem("resumeFileName") || "", 
     };
   };
 
@@ -60,10 +60,8 @@ const ResumeHandler = ({ labelStyle = {}, title ,buttonStyle = {} }) => {
     return name.substring(0, maxLength) + "...";
   };
 
-  // Use useEffect to log the updated resume text when it changes
   useEffect(() => {
-    // Log updated resumeText
-  }, [resumeText]); // Only log when resumeText changes
+  }, [resumeText]); 
 
   return (
     <div style={{ padding: "15px 0" }}>
@@ -71,7 +69,7 @@ const ResumeHandler = ({ labelStyle = {}, title ,buttonStyle = {} }) => {
         type="file"
         accept=".pdf,.docx"
         onChange={handleFileUpload}
-        style={{ display: "none" }} // Hide the file input
+        style={{ display: "none" }} 
         id="fileInput"
       />
       {resumeLoading ? (

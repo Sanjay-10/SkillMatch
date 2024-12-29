@@ -1,12 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import Redux hooks
+import { useSelector } from "react-redux"; // Import Redux hooks
 import ResumeHandler from "../components/ResumeHandler";
 import TextExtractor from "../components/TextExtractor";
-import { toggleDarkMode as toggleDarkModeAction } from "../skillMatchSlice"; // Import action
 import { Link } from "react-router-dom";
 import Bgc from "../components/Bgc";
 import Header from "../components/Header";
-import fail from "../assets/failed.png"; 
+import fail from "../assets/failed.png";
 
 function Homepage() {
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
@@ -16,20 +15,14 @@ function Homepage() {
     <div
       className={isDarkMode ? "dark" : ""}
       style={{ width: "330px", height: "430px", overflow: "hidden" }}
-    >      
-            {/* Success or Failure Alert */}
-            {resumeError == true && (
-              <div  
-                className="fixed top-4 right-4 flex items-center gap-4 p-2 rounded shadow bg-red-100 text-red-800"
-              >
-                <img
-                  src={fail} 
-                  alt={'Error'}
-                  className="w-5 h-5"
-                />
-                <span>{"Please try again."}</span>
-              </div>
-            )}
+    >
+      {/* Success or Failure Alert */}
+      {resumeError == true && (
+        <div className="fixed top-4 right-4 flex items-center gap-4 p-2 rounded shadow bg-red-100 text-red-800">
+          <img src={fail} alt={"Error"} className="w-5 h-5" />
+          <span>{"Please try again."}</span>
+        </div>
+      )}
 
       <div className="font-medium text-lg px-5">
         <Header />
@@ -51,9 +44,7 @@ function Homepage() {
             Generates Perfect <strong>Cover Letters</strong> for Students!
           </p>
 
-
           {/* Analyze Button */}
-
           {fileName && (
             <div className="mt-6 font-semibold w-full">
               <Link to="/analyze" className="w-full ">
@@ -110,9 +101,7 @@ function Homepage() {
               />
             </div>
           )}
-
         </div>
-
       </div>
     </div>
   );

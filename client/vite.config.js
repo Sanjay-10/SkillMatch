@@ -7,12 +7,12 @@ export default defineConfig({
     outDir: './dist', 
     rollupOptions: {
       input: {
-        popup: 'index.html', // Entry point for your extension popup
-        content: './public/content.js', // Entry point for content script
-        background: './public/background.js', // Optional background script, if any
+        popup: 'index.html', 
+        content: './public/content.js', 
+        background: './public/background.js', 
       },
       output: {
-        // Ensures content.js is bundled correctly
+ 
         entryFileNames: '[name].js',
         chunkFileNames: '[name]-[hash].js',
         assetFileNames: '[name]-[hash][extname]',

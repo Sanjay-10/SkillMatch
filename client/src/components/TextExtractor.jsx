@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setResult, setGeminiLoading, setResumeError, setJobDescription } from "../skillMatchSlice";
 
 /*global chrome*/
-const TextExtractor = ({ buttonLabel, buttonStyle = {}, onResult }) => {
+const TextExtractor = ({ buttonLabel, buttonStyle = {} }) => {
 
   const dispatch = useDispatch();
   const resumeText = useSelector((state) => state.skillMatch.resumeText);

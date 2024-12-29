@@ -4,8 +4,8 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: "root", // Key for the persisted state
-  storage, // Use localStorage
+  key: "root",
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, skillMatchReducer);
@@ -14,15 +14,15 @@ const store = configureStore({
   reducer: {
     skillMatch: persistedReducer,
   },
-  // Ignore non-serializable values in actions
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
-        ignoredPaths: ["register"], // Ignore paths with non-serializable data
+        ignoredPaths: ["register"],
       },
     }),
 });
 
-export const persistor = persistStore(store); // Create a persistor
+export const persistor = persistStore(store);
 export default store;

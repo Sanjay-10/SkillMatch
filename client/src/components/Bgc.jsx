@@ -1,9 +1,9 @@
-import React from 'react'
-import { useDispatch, useSelector } from "react-redux"; // Import Redux hooks
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function Bgc() {
-    const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
-
+  const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode);
+  
   return (
     <div>
         {/*UPPER GRADIENT */}
@@ -15,7 +15,7 @@ function Bgc() {
             style={{
               clipPath:
                 "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 30.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              backgroundColor: "#000000", // Set background to black for dark mode
+              backgroundColor: "#000000", 
             }}
             className={`relative left-[calc(60%-1rem)] aspect-[1055/678] w-[46.125rem] -translate-x-1/2 rotate-[40deg] ${
               isDarkMode
@@ -34,7 +34,7 @@ function Bgc() {
             style={{
               clipPath:
                 "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 30.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              backgroundColor: "#000000", // Set background to black for dark mode
+              backgroundColor: "#000000", 
             }}
             className={`relative left-[calc(60%-1rem)] aspect-[1055/678] w-[46.125rem] -translate-x-1/2 rotate-[60deg] ${
               isDarkMode

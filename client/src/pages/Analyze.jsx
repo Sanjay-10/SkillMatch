@@ -11,20 +11,32 @@ import { useEffect } from "react";
 function Analyze() {
   const navigate = useNavigate();
   const { result, isDarkMode, geminiLoading, resumeText, jobDescription } = useSelector((state) => state.skillMatch);
-  
-  const sendData = () => {
-    const data = {
-      result,
-      resumeText,
-      jobDescription,
-    };
-    const encodedData = encodeURIComponent(JSON.stringify(data));
-    const receiverUrl = `http://localhost:5173/?data=${encodedData}`;
-    window.open(receiverUrl, "_blank");
-  };
 
   const resumeLoadingOff = () => {
     setResumeLoading(false);
+  };
+
+  const overviewPage = async () => {  
+    try {
+      const response = await fetch("http://localhost:5000/gemini/detailedOverview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resumeText, jobDescription, extensionResult: result }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Navigate to the overview page with the processed result
+        window.open(
+          `http://localhost:5173/overview?data=${encodeURIComponent(JSON.stringify(data))}`,
+          "_blank"
+        );
+      } else {
+        console.error("Failed to fetch detailed overview");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {
@@ -89,8 +101,8 @@ function Analyze() {
       )}
       {!geminiLoading && (
         <div className="flex justify-center items-center">
-          {/* <Link to="/detailed-overview" target="_blank"> */}
-            <button onClick={sendData} className="text-[13px] px-4 py-2 bg-blue-600 rounded-[4px] text-white font-medium tracking-wider">
+          
+            <button onClick={overviewPage} className="text-[13px] px-4 py-2 bg-blue-600 rounded-[4px] text-white font-medium tracking-wider">
               Detailed Overview
               <ArrowBackIosNewRoundedIcon style={{ marginLeft: "10px", rotate: "180deg", fontSize: "14px" }} />
             </button>
