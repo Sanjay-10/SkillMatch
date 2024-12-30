@@ -26,7 +26,7 @@ app.use("/gemini", geminiRoutes);
 
 const key = process.env.GOOGLE_API_KEY;
 app.get("/", (req, res) => {
-  res.send("Server is running");
+  res.send("key: " , key);
 
 });
 
