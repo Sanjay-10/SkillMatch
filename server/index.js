@@ -14,6 +14,7 @@ app.use(express.json()); // Parse JSON bodies
 app.use(cors({ origin: "https://skill-match-dashboard.vercel.app" })); 
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
+require("dotenv").config();
 
 // Multer configuration
 const storage = multer.memoryStorage(); // Store file in memory
@@ -24,10 +25,9 @@ app.use("/pdfExtractor", upload.single("file"), pdfParserRoutes);
 app.use("/gemini", geminiRoutes);
 
 
-const key = process.env.GOOGLE_API_KEY;
+const demo = process.env.GOOGLE_GEMINI_KEY;
 app.get("/", (req, res) => {
-  res.status(200).send(`key: ${key}`);
-
+  res.send(demo);
 });
 
 // Start the server
