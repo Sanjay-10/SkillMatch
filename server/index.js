@@ -12,6 +12,7 @@ const port = 5000;
 require("dotenv").config();
 app.get('/debug', (req, res) => {
   res.json({ apiKey: process.env.GOOGLE_API_KEY });
+  res.json("API key sent");
 });
 
 
