@@ -25,9 +25,11 @@ const upload = multer({ storage });
 app.use("/pdfExtractor", upload.single("file"), pdfParserRoutes);
 app.use("/gemini", geminiRoutes);
 
+
+const key = process.env.GOOGLE_API_KEY;
 app.get("/", (req, res) => {
   res.send("Server is running");
-  res.json({ apiKey: process.env.GOOGLE_API_KEY });
+  res.json("key", key);
 });
 
 // Start the server
