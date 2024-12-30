@@ -17,7 +17,7 @@ const extractTextFromPDF = async (file) => {
   const formData = new FormData();
   formData.append("file", file); 
   try {
-    const response = await fetch("http://localhost:5000/pdfExtractor/extract", {
+    const response = await fetch("https://skillmatch-server.vercel.app/pdfExtractor/extract", {
       method: "POST",
       body: formData,
     });

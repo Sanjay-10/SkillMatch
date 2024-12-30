@@ -44,7 +44,7 @@ const TextExtractor = ({ buttonLabel, buttonStyle = {} }) => {
       dispatch(setJobDescription(websiteContent));
       // console.log("Website content:", websiteContent);
       // console.log("Resume text:", resumeText);
-      const response = await fetch('http://localhost:5000/gemini/extension', {
+      const response = await fetch('https://skillmatch-server.vercel.app/gemini/extension', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ app.use("/pdfExtractor", upload.single("file"), pdfParserRoutes);
 app.use("/gemini", geminiRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Server is running on Vercel");
+  res.send("Server is running");
 });
 
 // Start the server

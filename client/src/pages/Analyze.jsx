@@ -18,7 +18,7 @@ function Analyze() {
 
   const overviewPage = async () => {  
     try {
-      const response = await fetch("http://localhost:5000/gemini/detailedOverview", {
+      const response = await fetch("https://skillmatch-server.vercel.app/gemini/detailedOverview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText, jobDescription, extensionResult: result }),
@@ -28,7 +28,7 @@ function Analyze() {
         const data = await response.json();
         // Navigate to the overview page with the processed result
         window.open(
-          `http://localhost:5173/overview?data=${encodeURIComponent(JSON.stringify(data))}`,
+          `https://skill-match-dashboard.vercel.app/overview?data=${encodeURIComponent(JSON.stringify(data))}`,
           "_blank"
         );
       } else {
