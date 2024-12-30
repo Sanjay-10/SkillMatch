@@ -10,11 +10,6 @@ const app = express();
 const port = 5000;
 
 require("dotenv").config();
-app.get('/debug', (req, res) => {
-  res.json({ apiKey: process.env.GOOGLE_API_KEY });
-  res.json("API key sent");
-});
-
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -32,6 +27,7 @@ app.use("/gemini", geminiRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
+  res.json({ apiKey: process.env.GOOGLE_API_KEY });
 });
 
 // Start the server
