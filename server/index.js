@@ -28,16 +28,11 @@ app.use("/gemini", geminiRoutes);
 
 const key = process.env.GOOGLE_API_KEY;
 app.get("/", (req, res) => {
-  res.send("Server is running");
-  if (key) {
-    res.send(key);
-  } else {
-    res.send("key not found");
-  }
+  res.send("Hello World! :: ", key);
 
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`);
+// });
