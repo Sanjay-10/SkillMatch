@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
-app.use(cors({ origin: "*" })); // Enable CORS
+app.use(cors({ origin: "https://skill-match-dashboard.vercel.app" })); 
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
 
@@ -22,6 +22,10 @@ const upload = multer({ storage });
 // Use routes
 app.use("/pdfExtractor", upload.single("file"), pdfParserRoutes);
 app.use("/gemini", geminiRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Server is running on Vercel");
+});
 
 // Start the server
 app.listen(port, () => {
