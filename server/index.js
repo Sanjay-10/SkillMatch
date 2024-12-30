@@ -9,6 +9,12 @@ const geminiRoutes = require("./routes/gemini");
 const app = express();
 const port = 5000;
 
+require("dotenv").config();
+app.get('/debug', (req, res) => {
+  res.json({ apiKey: process.env.GOOGLE_API_KEY });
+});
+
+
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 app.use(cors({ origin: "https://skill-match-dashboard.vercel.app" })); 
