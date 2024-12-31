@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
-app.use(cors({ origin: "https://skill-match-dashboard.vercel.app" })); 
+app.use(cors({ origin: "http://localhost:5173" })); 
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
 require("dotenv").config();
@@ -26,6 +26,11 @@ app.use("/gemini", geminiRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
+});
+
+app.get("/test", (req, res) => {
+  res.set('Content-Type', 'text/html');
+  res.send('<h1>Test String</h1>');
 });
 
 // Start the server
