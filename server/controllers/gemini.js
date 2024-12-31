@@ -184,12 +184,7 @@ Data Source Selection: Use Gemini File 2, as it is designed to process resumes a
     const jsonResponse = result.response.text().replace(/```json\n|\n```/g, "");
     const parsedResult = JSON.parse(jsonResponse);
 
-    res.json({
-      jobDescription,
-      resumeText,
-      extensionResult,
-      detailedOverview: parsedResult,
-    });
+    res.json({ detailedOverview: parsedResult});
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to generate result" });
