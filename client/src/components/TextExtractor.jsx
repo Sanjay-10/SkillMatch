@@ -6,14 +6,13 @@ import { setResult, setGeminiLoading, setResumeError, setJobDescription } from "
 const TextExtractor = ({ buttonLabel, buttonStyle = {} }) => {
 
   const dispatch = useDispatch();
-  const resumeText = useSelector((state) => state.skillMatch.resumeText);
+  const {resumeText, geminiLoading} = useSelector((state) => state.skillMatch);
 
   // const [extractedText, setExtractedText] = useState("");
 
   // WEBSITE CONTENT EXTRACTOR
   // Function to fetch and display extracted text
   const handleExtractText = () => {
-    dispatch(setGeminiLoading(true));
     // console.log("handleExtractText() Fetching extracted text...");
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({ action: "EXTRACTED_TEXT" }, (response) => {
@@ -54,11 +53,13 @@ const TextExtractor = ({ buttonLabel, buttonStyle = {} }) => {
       const data = await response.json();
 
       dispatch(setResult(data.result));
+      dispatch(setGeminiLoading(false));
       // console.log("Result:", data.result);  
 
     } catch (error) {
       dispatch(setResult(error.message));
       dispatch(setResumeError(true));
+      dispatch(setGeminiLoading(false));
       setTimeout(() => {
         dispatch(setResumeError(false));
       }, 3000);
@@ -74,7 +75,7 @@ const TextExtractor = ({ buttonLabel, buttonStyle = {} }) => {
 
   return (
     <div >
-      <button onClick={() => fetchResult()} style={buttonStyle}>
+      <button disabled={geminiLoading}  onClick={() => fetchResult()} style={buttonStyle}>
         {buttonLabel}
       </button>
     </div>

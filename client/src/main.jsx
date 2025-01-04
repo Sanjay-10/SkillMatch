@@ -5,12 +5,18 @@ import { PersistGate } from "redux-persist/integration/react"; // Import Persist
 import store, { persistor } from "./store"; // Correct default and named import
 import './index.css';
 import App from './App.jsx';
+import ErrorBoundaryWithNavigation from './pages/Error.jsx'; // Ensure this uses navigation properly
+import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>  
-  </Provider>
+  <HashRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ErrorBoundaryWithNavigation>
+          <App />
+        </ErrorBoundaryWithNavigation>
+      </PersistGate>  
+    </Provider>
+  </HashRouter>
 );

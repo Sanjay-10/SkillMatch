@@ -1,5 +1,5 @@
 import React from "react";
-import InfoIcon from "@mui/icons-material/Info";
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -14,7 +14,10 @@ function Header() {
       </div>
 
       <div>
-        <InfoIcon style={{ fontSize: "25px" }} />
+      <a href='https://skill-match-dashboard.vercel.app/contact' target="_blank" rel="noopener noreferrer" >
+
+        <ContactSupportIcon style={{ fontSize: "28px"  }} />
+        </a> 
       </div>
 
     </div>

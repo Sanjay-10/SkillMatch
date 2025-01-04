@@ -1,15 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux"; // Import Redux hooks
+import { useSelector, useDispatch } from "react-redux"; // Import Redux hooks
 import ResumeHandler from "../components/ResumeHandler";
 import TextExtractor from "../components/TextExtractor";
 import { Link } from "react-router-dom";
 import Bgc from "../components/Bgc";
 import Header from "../components/Header";
 import fail from "../assets/failed.png";
+import { setGeminiLoading, setResumeError } from "../skillMatchSlice";
+import { useEffect } from "react";
 
 function Homepage() {
+  
   const isDarkMode = useSelector((state) => state.skillMatch.isDarkMode); // Access dark mode state from Redux
   const { fileName, resumeError } = useSelector((state) => state.skillMatch);
+
+  const dispatch = useDispatch(); 
+  useEffect (() => {
+    dispatch(setGeminiLoading(false));
+    dispatch(setResumeError(false));
+  }, [dispatch]);
 
   return (
     <div

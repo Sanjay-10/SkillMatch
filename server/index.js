@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
-app.use(cors({ origin: "http://localhost:5173" })); 
+app.use(cors()); 
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
 require("dotenv").config();

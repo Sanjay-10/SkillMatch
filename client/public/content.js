@@ -1,16 +1,20 @@
-// function extractVisibleText() {
-//     const allElements = Array.from(document.body.querySelectorAll("*"));
-//     return allElements
-//       .filter(
-//         (el) =>
-//           el.offsetParent !== null && // Not hidden with display:none
-//           getComputedStyle(el).visibility !== "hidden" // Not visibility:hidden
-//       )
-//       .map((el) => el.innerText.trim())
-//       .filter((text) => text.length > 0) // Exclude empty strings
-//       .join("\n");
-//   }
+// Listen for messages from the webpage
+window.addEventListener("message", (event) => {
+    if (event.source !== window || !event.data.type) return;
   
-//   const extractedText = extractVisibleText();
-//   chrome.runtime.sendMessage({ type: "TEXT_EXTRACTED", text: extractedText });
+    if (event.data.type === "FROM_REACT_APP") {
+      chrome.runtime.sendMessage(
+        { action: "getData", uniqueId: event.data.uniqueId },
+        (response) => {
+          if (response && response.success) {
+            // Send data back to the webpage
+            window.postMessage(
+              { type: "FROM_CONTENT_SCRIPT", data: response.data },
+              "*"
+            );
+          }
+        }
+      );
+    }
+  });
   

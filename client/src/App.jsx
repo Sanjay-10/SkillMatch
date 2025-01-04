@@ -6,13 +6,11 @@ import AnalyzePage from "./pages/Analyze";
 function App() {
 
   return (
-    <div> 
-      <Router>
+        <div> 
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/analyze" element={<AnalyzePage />} />
         </Routes>
-      </Router>
     </div>
   );
 }

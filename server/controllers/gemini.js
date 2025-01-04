@@ -160,7 +160,7 @@ Ensuring the professional summary or skills section emphasizes JD-relevant exper
 
 3) Project Enhancement Tips: Recommend new projects or modifications to existing projects that can showcase missing or underrepresented skills (e.g., 'Add a React-based CRUD application to demonstrate JavaScript expertise').
 
-4) Resume Review: Provide general feedback on the resume's presentation, such as layout, readability, and tone (e.g., 'Well-structured but could use more concise descriptions in the experience section').
+4) Resume Review: Provide general feedback on the resume's presentation, such as layout, readability, and tone (e.g., 'Well-structured but could use more concise descriptions in the experience section') about 4-5 lines.
 
 return json file in below format having 4 main headings and less than 5 points per heading:
 
@@ -172,7 +172,7 @@ return json file in below format having 4 main headings and less than 5 points p
 
   "projectEnhancement": ["e.g., Add a project on process automation to showcase innovation skills"],
 
-  "resumeReview": "e.g., Clean layout but descriptions could use more metrics and focus."
+  "resumeReview": e.g., ["Clean layout but descriptions could use more metrics and focus."]
 }
 
 Data Source Selection: Use Gemini File 2, as it is designed to process resumes and JDs efficiently for actionable insights and avoids unnecessary complexity."

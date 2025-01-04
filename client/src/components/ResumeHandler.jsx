@@ -27,12 +27,12 @@ const ResumeHandler = ({ labelStyle = {}, title ,buttonStyle = {} }) => {
     };
   };
 
-  // On component mount, load resume text and file name from local storage
   useEffect(() => {
     const { text, name } = getResumeFromLocalStorage();
     if (text) {
       dispatch(setResumeText(text));
       dispatch(setFileName(name));
+      dispatch(setResumeLoading(false));
     }
   }, [dispatch]);
 

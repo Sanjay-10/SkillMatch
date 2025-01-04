@@ -7,6 +7,7 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import Loader from "../components/Loader/Loader";
 import { setResumeLoading } from "../skillMatchSlice";
 import { useEffect } from "react";
+import { use } from "react";
 
 function Analyze() {
   const navigate = useNavigate();
@@ -16,29 +17,33 @@ function Analyze() {
     setResumeLoading(false);
   };
 
-  const overviewPage = async () => {  
-    try {
-      const response = await fetch("https://skillmatch-server.vercel.app/gemini/detailedOverview", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resumeText, jobDescription, extensionResult: result }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Navigate to the overview page with the processed result
-        window.open(
-          `https://skill-match-dashboard.vercel.app/overview?data=${encodeURIComponent(JSON.stringify(data))}`,
-          "_blank"
-        );
-      } else {
-        console.error("Failed to fetch detailed overview");
+  const storeTemporaryData = async (data, callback) => {
+    const uniqueId = `data_${Date.now()}`;
+    
+    chrome.runtime.sendMessage(
+      { action: "storeData", data, uniqueId },
+      (response) => {
+        if (response?.success) {
+          callback(uniqueId);
+        } else {
+          console.error("Error storing data.");
+        }
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    );
   };
-
+  
+  const handleOverview = () => {
+    const data = {
+      resumeText,
+      jobDescription,
+      extensionResult: result,
+    };
+    storeTemporaryData(data, (uniqueId) => {
+      window.open(`http://localhost:5173/overview?data=${uniqueId}`, "_blank");
+    });
+  };
+  
+  
   useEffect(() => {
     resumeLoadingOff();
     if (result?.error || !result) {
@@ -51,7 +56,7 @@ function Analyze() {
       <div className="flex items-center w-full">
         <div className="flex-shrink-0">
           <Link to="/">
-            <ArrowBackIosNewRoundedIcon style={{ fontSize: "17px", marginLeft: "6px" }} />
+            <ArrowBackIosNewRoundedIcon style={{ fontSize: "20px", marginLeft: "6px", color:"#007bff" }} />
           </Link>
         </div>
         <div className="flex-grow font-medium text-lg ">
@@ -102,7 +107,8 @@ function Analyze() {
       {!geminiLoading && (
         <div className="flex justify-center items-center">
           
-            <button onClick={overviewPage} className="text-[13px] px-4 py-2 bg-blue-600 rounded-[4px] text-white font-medium tracking-wider">
+            <button onClick={handleOverview}
+                  className="text-[13px] px-4 py-2 bg-blue-600 rounded-[4px] text-white font-medium tracking-wider">
               Detailed Overview
               <ArrowBackIosNewRoundedIcon style={{ marginLeft: "10px", rotate: "180deg", fontSize: "14px" }} />
             </button>
