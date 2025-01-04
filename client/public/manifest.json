@@ -1,34 +1,34 @@
 {
-  "name": "SkillMatch",
-  "version": "1.0",
-  "manifest_version": 3,
-  "action": {
-    "default_popup": "index.html",
-    "default_icon": "./assets/SM-128x128.png"
+    "name": "SkillMatch",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": "./assets/SM-128x128.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+  "permissions": ["activeTab","storage", "scripting"],
+  
+  "icons": {
+      "16": "./assets/SM-16x16.png",
+      "48": "./assets/SM-48x48.png",
+      "128": "./assets/SM-128x128.png",
+      "192": "./assets/SM-192x192.png",
+      "1024": "./assets/SM-1024x1024.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
-"permissions": ["tabs", "activeTab","storage", "scripting"],
-"host_permissions": ["<all_urls>"],
-"icons": {
-    "16": "./assets/SM-16x16.png",
-    "48": "./assets/SM-48x48.png",
-    "128": "./assets/SM-128x128.png",
-    "192": "./assets/SM-192x192.png",
-    "1024": "./assets/SM-1024x1024.png"
-},
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "type": "module"   
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [ "src/utils/websiteTextExtractor.js" ],
-      "matches": [ "<all_urls>" ]
-    }
-  ]
-}
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "type": "module"   
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [ "src/utils/websiteTextExtractor.js" ],
+        "matches": [ "<all_urls>" ]
+      }
+    ]
+  }

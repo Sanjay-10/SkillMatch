@@ -37,6 +37,7 @@ function Homepage() {
         <Header />
       </div>
 
+
       <div className="relative flex flex-col  items-center justify-between pb-2 px-4 text-center w-full h-full">
         <Bgc />
 
