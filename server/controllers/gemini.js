@@ -67,7 +67,7 @@ Job Title: As mentioned in the JD.
 Start Date: In DD MM YYYY  format (MM in shorthand of months like jan feb ..), if available; otherwise, NA.
 jobType :  Parttime , fulltime, coop and Duration of the job if mentions in months (e.g., 4, 6, 12); if not specified, use NA. coop - 4 mon" or fulltime or contract or coop - 8mon. just (Jobtype - Duration ) duraction only if mentions . use shortform of month i.e mon for months and yr for year and for all use shortform.
 Location: Job location as specified (e.g., city, state, hybrid or Remote).
-Salary: Salary details in use shortform of per year or per hours or etc like /yr, /hr ...also CA$70/hr - CA$75/hr to 70 write to CA$ 70–75/hr or yr; if not provided, use NA.
+Salary: Salary details in use shortform of per year or per hours or etc like /yr, /hr ...also CA$70/hr - CA$75/hr to 70 write to CA$ 70–75/hr or yr; if not provided, use NA. or if unpaid then mention unpaid
 Experience: Required experience (e.g., '5+ years') dont write 5+ years experience just 5 years, if not specified, use NA.
 Responsibilities: Summarize responsibilities in 10 words or fewer.
 
@@ -94,7 +94,7 @@ Return results in the following structured JSON format:
     "jobType": "coop - 4 mon or fulltime or contract or coop - 8mon",
     "experience": "Experience level (e.g., '5+ years')",
     "location": "Job location (ex: toronto - hybrid, toronto, anycity or remote)",
-    "salary": "51.5K-59K/yr or NA",
+    "salary": "51.5K-59K/yr or NA or if unpaid then mention unpaid",
     "responsibilities": "Summary in 10 words or fewer"
   }
 }
