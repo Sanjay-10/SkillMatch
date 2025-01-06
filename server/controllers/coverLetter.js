@@ -63,8 +63,9 @@ Your closing paragraph is to reiterate your qualifications and interest in the r
 IMPORTANT: Please do not write anything you are unsure about, and avoid using brackets. If you don't know something, simply leave it out instead of leaving space for me. Also dont use as advertised on [Platform where you saw the ad].
 `;
 
-    const result = await chatSession.sendMessage(coverLetterPrompt);
-    console.log(result.response.text());
+const generatedText = result.response; 
+console.log(generatedText); 
+res.status(200).json({ coverLetter: generatedText });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to generate result" });
