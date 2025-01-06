@@ -82,7 +82,7 @@ if (!candidates || !candidates[0]?.content?.parts?.[0]?.text) {
 }
 
 // Extract the generated text
-const generatedText = candidates[0].content.parts[0].text;
+const generatedText = candidates[0].content.parts[0].text.replace(", as advertised on [Platform where you saw the ad]", "");
 
 // Log the generated text for debugging
 console.log(generatedText);
