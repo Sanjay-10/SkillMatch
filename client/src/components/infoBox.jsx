@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 function InfoBox({ title, value }) {
 
-    const missingSkills = useSelector((state) => state.skillMatch.result);
+const missingSkills = useSelector((state) => state.skillMatch.result);
 return (
     <div className="mb-1.5 ">
 
