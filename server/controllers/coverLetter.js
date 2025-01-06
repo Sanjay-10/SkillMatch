@@ -69,8 +69,7 @@ IMPORTANT: Please do not write anything you are unsure about, and avoid using br
 
     const result = await chatSession.sendMessage(coverLetterPrompt);
 
-    const generatedText =
-      result.response.coverLetter.candidates[0].content.parts[0].text;
+    const generatedText = result.response.coverLetter.candidates[0].content.parts[0].text;
     console.log(generatedText);
     res.status(200).json({ coverLetter: generatedText });
   } catch (error) {
