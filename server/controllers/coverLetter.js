@@ -1,5 +1,7 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+require("dotenv").config();
+
 const apiKey = process.env.GOOGLE_GEMINI_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -67,11 +69,28 @@ Your closing paragraph is to reiterate your qualifications and interest in the r
 IMPORTANT: Please do not write anything you are unsure about, and avoid using brackets. If you don't know something, simply leave it out instead of leaving space for me. Also dont use as advertised on [Platform where you saw the ad].
 `;
 
-    const result = await chatSession.sendMessage(coverLetterPrompt);
+const result = await chatSession.sendMessage(coverLetterPrompt);
 
-    const generatedText = result.response.coverLetter.candidates[0].content.parts[0].text;
-    console.log(generatedText);
-    res.status(200).json({ coverLetter: generatedText });
+// Log the full response to verify structure
+console.log(JSON.stringify(result.response, null, 2));
+
+// Safely extract the cover letter text
+const candidates = result.response?.candidates;
+if (!candidates || !candidates[0]?.content?.parts?.[0]?.text) {
+    console.error("Invalid response structure:", result.response);
+    return res.status(500).json({ error: "Failed to retrieve cover letter text." });
+}
+
+// Extract the generated text
+const generatedText = candidates[0].content.parts[0].text;
+
+// Log the generated text for debugging
+console.log(generatedText);
+
+// Send the response back as JSON
+res.status(200).json({ coverLetter: generatedText });
+
+
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to generate result" });
