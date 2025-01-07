@@ -39,10 +39,9 @@ function Analyze() {
       extensionResult: result,
     };
     storeTemporaryData(data, (uniqueId) => {
-      window.open(`https://skill-match-dashboard.vercel.app//overview?data=${uniqueId}`, "_blank");
+      window.open(`https://skill-match-dashboard.vercel.app/overview?data=${uniqueId}`, "_blank");
     });
   };
-  
   
   useEffect(() => {
     resumeLoadingOff();
