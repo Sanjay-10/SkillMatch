@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const pdfParserRoutes = require("./routes/pdfParser");
 const geminiRoutes = require("./routes/gemini");
 
+require("dotenv").config();
 const app = express();
 const port = 5000;
 
@@ -14,7 +15,6 @@ app.use(express.json()); // Parse JSON bodies
 app.use(cors()); 
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
-require("dotenv").config();
 
 // Multer configuration
 const storage = multer.memoryStorage(); 
