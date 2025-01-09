@@ -66,7 +66,7 @@ Step 3: Extract Job Details
 From the job description, extract the following details:
 
 Job Title: As mentioned in the JD.
-Start Date: In DD MM YYYY  format (MM in shorthand of months like jan feb ..), if available; otherwise, NA.
+Start Date: In DD MM YYYY  format (MM in shorthand of months like jan feb ..),sometimes its also written like summer, winter or so on, if available; otherwise, NA.
 jobType :  Parttime , fulltime, coop and Duration of the job if mentions in months (e.g., 4, 6, 12); if not specified, use NA. coop - 4 mon" or fulltime or contract or coop - 8mon. just (Jobtype - Duration ) duraction only if mentions . use shortform of month i.e mon for months and yr for year and for all use shortform.
 Location: Job location as specified (e.g., city, state, hybrid or Remote).
 Salary: Salary details in use shortform of per year or per hours or etc like /yr, /hr ...also CA$70/hr - CA$75/hr to 70 write to CA$ 70–75/hr or yr; if not provided, use NA. or if unpaid then mention unpaid
@@ -92,7 +92,7 @@ Return results in the following structured JSON format:
   "jobDetails": {
     "company": "Properly formatted company name",
     "jobTitle": "Extracted job title",
-    "startDate": "1 jan 2025",
+    "startDate": "1 may 2025", (or Summer see JD) if wriiten in JD (if date is not available use NA)
     "jobType": "coop - 4 mon or fulltime or contract or coop - 8mon",
     "experience": "Experience level (e.g., '5+ years')",
     "location": "Job location (ex: toronto - hybrid, toronto, anycity or remote)",
