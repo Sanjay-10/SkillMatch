@@ -17,7 +17,7 @@ app.use(morgan("common")); // Log HTTP requests
 require("dotenv").config();
 
 // Multer configuration
-const storage = multer.memoryStorage(); // Store file in memory
+const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
 
 // Use routes
