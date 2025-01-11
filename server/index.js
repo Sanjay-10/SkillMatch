@@ -16,8 +16,6 @@ app.use(cors());
 app.use(helmet()); // Add security headers
 app.use(morgan("common")); // Log HTTP requests
 
-app.use('/client/public/assets/favicon-16x16.png', express.static(path.join(__dirname, 'public', 'favicon.png'))); 
-
 // Multer configuration
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
