@@ -12,18 +12,38 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             func: () => {
               try {
                 const hostname = window.location.hostname;
+
                 if (hostname.includes("linkedin")) {
-                  const jobDetails = document.querySelector(".jobs-search__job-details--wrapper");
-                  return jobDetails ? jobDetails.innerText : "No job details found on LinkedIn.";
+                  const jobDetails = document.querySelector(
+                    ".jobs-search__job-details--wrapper"
+                  );
+                  return jobDetails
+                    ? jobDetails.innerText
+                    : "No job details found on LinkedIn.";
                 } else if (hostname.includes("glassdoor")) {
-                  const jobDetails = document.querySelector(".TwoColumnLayout_jobDetailsContainer__qyvJZ");
-                  return jobDetails ? jobDetails.innerText : "No job details found on Glassdoor.";
+                  const jobDetails = document.querySelector(
+                    ".TwoColumnLayout_jobDetailsContainer__qyvJZ"
+                  );
+                  return jobDetails
+                    ? jobDetails.innerText
+                    : "No job details found on Glassdoor.";
                 } else if (hostname.includes("indeed")) {
-                  const jobDetails1 = document.querySelector("#job-full-details");
-                  const jobDetails2 = document.querySelector("#jobsearch-ViewjobPaneWrapper");
+                  const jobDetails1 = document.querySelector(
+                    "#job-full-details"
+                  );
+                  const jobDetails2 = document.querySelector(
+                    "#jobsearch-ViewjobPaneWrapper"
+                  );
                   if (jobDetails1) return jobDetails1.innerText;
                   if (jobDetails2) return jobDetails2.innerText;
                   return "No job details found on Indeed.";
+                } else if (hostname.includes("workday")) {
+                  const jobDetails = document.querySelector(
+                    '[data-automation-id="jobDetails"]'
+                  );
+                  return jobDetails
+                    ? jobDetails.innerText
+                    : "No job details found on Workday.";
                 } else {
                   return document.body.innerText;
                 }
@@ -36,7 +56,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (results && results[0]) {
               sendResponse({ status: "success", text: results[0].result });
             } else {
-              sendResponse({ status: "error", message: "Failed to extract text" });
+              sendResponse({
+                status: "error",
+                message: "Failed to extract text",
+              });
             }
           }
         );
@@ -45,7 +68,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     });
     return true; // Keep the message channel open
-  } 
+  }
 
   if (message.action === "storeData") {
     const { uniqueId, data } = message;
@@ -58,7 +81,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true; // Keep the channel open
   }
-  
+
   if (message.action === "getData") {
     const { uniqueId } = message;
     chrome.storage.local.get(uniqueId, (result) => {
@@ -70,5 +93,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true; // Keep the channel open
   }
-  
 });
