@@ -15,7 +15,7 @@ function Analyze() {
 
   const resumeLoadingOff = () => {
     setResumeLoading(false);
-  };
+  }; 
 
   const storeTemporaryData = async (data, callback) => {
     const uniqueId = `data_${Date.now()}`;
@@ -42,7 +42,7 @@ function Analyze() {
       window.open(`https://skill-match-dashboard.vercel.app/overview?data=${uniqueId}`, "_blank");
     });
   };
-  
+   
   useEffect(() => {
     resumeLoadingOff();
     if (result?.error || !result) {
