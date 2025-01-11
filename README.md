@@ -6,7 +6,7 @@ SkillMatch is a personal project that simplifies job hunting by analyzing job de
 
 ### Extension Interface
 
-![project 2- Dashboard - HomePage](client\public\Screensorts\ss.png)
+![project 2- Dashboard - HomePage](client/public/Screensorts/ss.png)
 *The homepage of the SkillMatch Dashboard*
 
 ![Extension Home](Home.png)
